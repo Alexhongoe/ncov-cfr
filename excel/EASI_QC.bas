@@ -83,14 +83,14 @@ Public Sub RunEasiQcSignals()
         chg = ws.Cells(rowIndex, colChg).Value
 
         If IsBaselineVisit(avisit, avisitn) Then
-            If IsNumeric(aval) Then
+            If Not IsError(aval) And IsNumeric(aval) Then
                 baselineCount(siteIndex) = baselineCount(siteIndex) + 1
                 baselineSum(siteIndex) = baselineSum(siteIndex) + CDbl(aval)
                 baselineSumSq(siteIndex) = baselineSumSq(siteIndex) + CDbl(aval) * CDbl(aval)
             End If
         End If
 
-        If IsNumeric(aval) Then
+        If Not IsError(aval) And IsNumeric(aval) Then
             avalCount(siteIndex) = avalCount(siteIndex) + 1
             intPart = Fix(CDbl(aval))
             lastDigit = intPart Mod 10
@@ -99,8 +99,8 @@ Public Sub RunEasiQcSignals()
             End If
         End If
 
-        If IsNumeric(avisitn) And CLng(avisitn) = 16 Then
-            If IsNumeric(chg) Then
+        If Not IsError(avisitn) And IsNumeric(avisitn) And CLng(avisitn) = 16 Then
+            If Not IsError(chg) And IsNumeric(chg) Then
                 w16Count(siteIndex) = w16Count(siteIndex) + 1
                 w16Records = w16Records + 1
                 ReDim Preserve w16SiteIndex(1 To w16Records)
